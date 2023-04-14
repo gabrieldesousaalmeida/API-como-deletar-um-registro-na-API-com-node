@@ -47,6 +47,7 @@ app.get('/artigos/:id', (req, res)=>{
     })
 })
 
+// editando registro
 app.put('/artigos/:id', (req, res)=>{
     const artigos = Artigo.updateOne({_id: req.params.id}, req.body)
     .then((artigo)=>{
@@ -58,6 +59,21 @@ app.put('/artigos/:id', (req, res)=>{
         return res.status(400).json({
             error: true,
             message: 'erro ao editar registro ' +error
+        })
+    })
+})
+
+app.delete('/artigo/:id', (req, res)=>{
+    const artigo = Artigo.deleteOne({_id: req.params.id})
+    .then(()=>{
+        return res.status(200).json({
+            error: false,
+            message: 'Artigo deletado com sucesso'
+        })
+    }).catch((erro)=>{
+        return res.status(400).json({
+            error: true,
+            message: 'erro ao artigo ser deletado '+erro
         })
     })
 })
